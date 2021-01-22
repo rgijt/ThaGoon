@@ -1,0 +1,16 @@
+<div class="content">
+    <div class="row header">
+        <div class="word-counter">
+            <i>{{ WordCounter | number:'2.0' }}</i>
+        </div>
+        <div class="options right" (click)="Stop()">
+            <img src="./../../../assets/icons/ingame-pause.svg" alt="pause" height="44px" width="44px" />
+        </div>
+    </div>
+    <div class="row word" (click)="SkipWord()">
+        <h1>{{ Word }}</h1>
+    </div>
+    <div class="row timer">
+        <i>{{ Stopwatch }}</i>
+    </div>
+</div>

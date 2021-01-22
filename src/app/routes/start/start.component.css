@@ -1,0 +1,73 @@
+.content {
+    height: 100vh;
+    position: relative;
+    background-color: #FF8465;
+}
+
+.header {
+    text-align: center;
+    padding-top: 20px;
+}
+.header h1 {
+    margin: 0;
+    color: #F2B964;
+    text-shadow: 3px 3px 5px #212121;
+}
+.header i {
+    color: #FFFFFF;
+}
+.option-menu {
+    width: 100%;
+    position: absolute;
+}
+.user {
+    float: left;
+    height: 80px;
+    width: 80px;
+    margin-left: 20px;
+    border-radius: 50%;
+    background-color: white;
+}
+.options {
+    float: right;
+    height: 80px;
+    width: 80px;
+    margin-right: 20px;
+    border-radius: 50%;
+    background-color: lightgrey;
+}
+
+.menu {
+    display: flex;
+    height: calc(100% - 220px);
+    vertical-align: middle;
+}
+.menu .btn {
+    width: 75%;
+    margin: auto;
+    cursor: pointer;
+    background-color: #212121;
+}
+.switch {
+    position: absolute;
+    left: calc(50% - 66px);
+    top: 60%;
+}
+.switch label{ 
+    color: #212121;
+}
+
+.scoreboard {
+    margin: 0;
+    text-align: center;
+    color: #000000;
+}
+.scoreboard h4 {
+    margin: 0;
+    text-shadow: 2px 2px 2px #212121;
+    color: #F2B964;
+}
+.scoreboard i {
+    color: #FFFFFF;
+}
+

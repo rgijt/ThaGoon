@@ -1,0 +1,27 @@
+<div class="content">
+    <div class="row header">
+        <div class="row option-menu">
+            <div class="user">
+
+            </div>
+            <div class="options" (click)="OpenOptions()">
+            
+            </div>
+        </div>
+        <h1>Goon</h1>
+        <i>Protecting your flow</i>
+    </div>
+    <div class="row menu">
+        <a (click)="Start()" class="btn">START</a>
+    </div>
+    <div class="row scoreboard">
+        <div class="col s6">
+            <h4>Words</h4>
+            <i>{{ WordCount | number:'2.0' }}</i>
+        </div>
+        <div class="col s6">
+            <h4>Time</h4>
+            <i>{{ Time }}</i>
+        </div>
+    </div>
+</div>
