@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import StartMenu from './pages/StartMenu.vue';
+import StartMenu from './views/StartMenu.vue';
 
 export default {
   name: 'App',
