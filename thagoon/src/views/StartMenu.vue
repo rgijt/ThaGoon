@@ -1,26 +1,29 @@
 <template>
   <div class="main">
-    <div class="header">
-      <div class="logout-btn"></div>
-      <div class="settings-btn"></div>
-    </div>
+    <Header />
     <div class="logo">
       <h1>ThaGoon</h1>
     </div>
     <ul class="menu">
-      <li class="start">Start</li>
-      <li>Score</li>
-      <li>Settings</li>
+      <li class="start">start</li>
     </ul>
-    <div class="footer">
-      <i>Made by Robert de Gijt</i>
+    <div class="score">
+      <img src="./../assets/icons/trophy.svg" />
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
+import Header from './../components/Header.vue';
+import Footer from './../components/Footer.vue';
+
 export default {
   name: 'StartMenu',
+  components: {
+    Header,
+    Footer,
+  },
 };
 </script>
 
@@ -30,28 +33,22 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   background-color: #f5f5f5;
 }
-
-div.header {
-  width: 100%;
-  display: flex;
-  position: absolute;
-  top: 0;
-  justify-content: space-between;
+header {
+  background-color: red;
 }
-div.header div {
-  height: 64px;
-  width: 64px;
-  background-color: grey;
-  margin: 20px 40px 40px 40px;
-  border-radius: 50%;
-}
-
 div.logo {
   color: #3c3c3c;
 }
+div.score {
+  width: 64px;
+  height: 64px;
+}
+
 ul.menu {
+  width: 100%;
   list-style-type: none;
 }
 ul.menu li {
@@ -60,7 +57,7 @@ ul.menu li {
   color: #ffffff;
   background-color: #087e8b;
   border-radius: 5px;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 ul.menu li:hover {
   transform: scale(1.02);
