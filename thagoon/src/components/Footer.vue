@@ -1,7 +1,7 @@
 <template>
-  <div class="footer">
+  <footer>
     <span class="credits">Made by Robert de Gijt</span>
-  </div>
+  </footer>
 </template>
 
 <script>
@@ -10,15 +10,15 @@ export default {
 };
 </script>
 
-<style>
-div.footer {
+<style scoped>
+footer {
   width: 100%;
   display: flex;
   position: absolute;
   bottom: 0;
   justify-content: center;
 }
-div.footer .credits {
+footer .credits {
   font-style: italic;
 }
 </style>

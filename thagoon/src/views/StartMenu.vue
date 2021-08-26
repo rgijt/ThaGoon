@@ -5,7 +5,7 @@
       <h1>ThaGoon</h1>
     </div>
     <ul class="menu">
-      <li class="start">start</li>
+      <li class="start"><router-link to="/game">start</router-link></li>
     </ul>
     <div class="score">
       <img src="./../assets/icons/trophy.svg" />
@@ -35,9 +35,6 @@ export default {
   justify-content: center;
   align-items: center;
   background-color: #f5f5f5;
-}
-header {
-  background-color: red;
 }
 div.logo {
   color: #3c3c3c;

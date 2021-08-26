@@ -1,15 +1,11 @@
 <template>
-  <StartMenu />
+  <router-view></router-view>
 </template>
 
 <script>
-import StartMenu from './views/StartMenu.vue';
-
 export default {
   name: 'App',
-  components: {
-    StartMenu,
-  },
+  components: {},
 };
 </script>
 
