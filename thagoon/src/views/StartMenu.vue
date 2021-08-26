@@ -48,6 +48,7 @@ ul.menu li {
   background-color: #087e8b;
   border-radius: 5px;
   transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
 }
 ul.menu li:hover {
   transform: scale(1.02);

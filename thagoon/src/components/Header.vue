@@ -1,18 +1,18 @@
 <template>
   <header>
-    <div class="startmenu-header">
+    <!-- <div class="startmenu-header">
       <div class="btn">
         <img src="../assets/icons/logout-1.svg" />
       </div>
       <div class="btn">
         <img src="../assets/icons/cogwheel.svg" />
       </div>
-    </div>
-    <!-- <div class="game-header">
-      <div class="btn">
-        <img src="../assets/icons/close.svg" />
-      </div>
     </div> -->
+    <div class="game-header">
+      <div class="btn">
+        <router-link to="/"><img src="../assets/icons/close.svg"/></router-link>
+      </div>
+    </div>
   </header>
 </template>
 
@@ -28,6 +28,7 @@ header {
   display: flex;
   position: absolute;
   top: 0;
+  z-index: 99;
 }
 header div {
   width: 100%;
