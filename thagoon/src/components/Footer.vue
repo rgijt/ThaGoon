@@ -1,6 +1,10 @@
 <template>
   <footer>
-    <span class="credits">Made by Robert de Gijt</span>
+    <span class="credits">
+      Copyright &copy; 2021<br />
+      Made by
+      <a href="https://www.robertdegijt.nl/" target="__blank">Robert de Gijt</a>
+    </span>
   </footer>
 </template>
 
@@ -19,6 +23,13 @@ footer {
   justify-content: center;
 }
 footer .credits {
+  font-size: 1em;
   font-style: italic;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+footer .credits a {
+  color: #3c3c3c;
+  text-decoration: underline;
 }
 </style>

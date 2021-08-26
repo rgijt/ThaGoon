@@ -1,29 +1,22 @@
 <template>
   <div class="main">
-    <Header />
     <div class="logo">
       <h1>ThaGoon</h1>
     </div>
     <ul class="menu">
-      <li class="start"><router-link to="/game">start</router-link></li>
+      <router-link to="/game">
+        <li class="start"><b>start</b></li>
+      </router-link>
     </ul>
     <div class="score">
-      <img src="./../assets/icons/trophy.svg" />
+      <img src="../assets/icons/trophy.svg" />
     </div>
-    <Footer />
   </div>
 </template>
 
 <script>
-import Header from './../components/Header.vue';
-import Footer from './../components/Footer.vue';
-
 export default {
   name: 'StartMenu',
-  components: {
-    Header,
-    Footer,
-  },
 };
 </script>
 
@@ -34,10 +27,10 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5;
 }
 div.logo {
   color: #3c3c3c;
+  font-size: 3em;
 }
 div.score {
   width: 64px;
@@ -50,7 +43,7 @@ ul.menu {
 }
 ul.menu li {
   margin: 20px 40px;
-  padding: 20px;
+  padding: 5px;
   color: #ffffff;
   background-color: #087e8b;
   border-radius: 5px;
@@ -60,6 +53,7 @@ ul.menu li:hover {
   transform: scale(1.02);
 }
 ul.menu li.start {
+  font-size: 4em;
   background-color: #ff5a5f;
 }
 </style>
