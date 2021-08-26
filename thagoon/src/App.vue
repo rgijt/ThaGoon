@@ -1,29 +1,52 @@
 <template>
-  <StartMenu />
+  <Header />
+  <router-view></router-view>
+  <Footer />
 </template>
 
 <script>
-import StartMenu from './pages/StartMenu.vue';
+import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
 
 export default {
   name: 'App',
   components: {
-    StartMenu,
+    Header,
+    Footer,
   },
 };
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Lato:ital,wght@0,100;1,100&display=swap');
+
 * {
   margin: 0;
   padding: 0;
 }
+a {
+  text-decoration: none;
+}
 #app {
+  height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  height: 100vh;
-  color: #2c3e50;
+  background-color: #f5f5f5;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+div,
+span,
+p {
+  font-family: 'Lato', sans-serif;
 }
 </style>
