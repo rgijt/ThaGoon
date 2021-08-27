@@ -1,12 +1,10 @@
 <template>
-  <header>
-    <div class="startmenu-header">
-      <div class="btn">
-        <img src="../assets/icons/logout-1.svg" />
-      </div>
-      <div class="btn">
-        <img src="../assets/icons/cogwheel.svg" />
-      </div>
+  <header v-if="$route.path === '/'">
+    <div class="btn">
+      <img src="../assets/icons/logout-1.svg" />
+    </div>
+    <div class="btn">
+      <img src="../assets/icons/cogwheel.svg" />
     </div>
   </header>
 </template>
@@ -24,11 +22,10 @@ header {
   position: absolute;
   top: 0;
   z-index: 99;
+  justify-content: space-between;
 }
 header div {
-  width: 100%;
-  margin: auto;
-  padding: 10px 0;
+  padding: 20px;
 }
 header img {
   height: 32px;
