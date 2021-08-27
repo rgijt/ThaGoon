@@ -9,6 +9,8 @@
       </div>
     </div> -->
     <div class="game-header">
+      <div><span>00</span></div>
+      <div><span>00:00:00</span></div>
       <div class="btn">
         <router-link to="/"><img src="../assets/icons/close.svg"/></router-link>
       </div>
@@ -32,19 +34,20 @@ header {
 }
 header div {
   width: 100%;
+  margin: auto;
+  padding: 10px 0;
 }
-header .btn {
-  height: 64px;
-  width: 64px;
-  margin: 20px 40px 40px 40px;
+header div span {
+  font-size: 2em;
+  font-weight: 600;
 }
 header img {
-  height: 100%;
-  width: 100%;
+  height: 32px;
+  width: 32px;
 }
 header .startmenu-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 header .game-header {
   display: flex;
