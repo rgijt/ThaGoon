@@ -31,6 +31,7 @@ export default {
 div.logo {
   color: #3c3c3c;
   font-size: 3em;
+  margin: -20px;
 }
 div.score {
   width: 64px;
