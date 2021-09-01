@@ -7,13 +7,13 @@
       <div>
         <span>{{ timer }}</span>
       </div>
-      <div class="btn" @click="close()">
+      <div class="btn" @click="openModal()">
         <img src="../assets/icons/close.svg" />
       </div>
     </header>
     <teleport to="body">
-      <div class="modal-holder" v-if="this.isOpen">
-        <ConfirmModal />
+      <div class="modal-placeholder" v-if="this.isOpen">
+        <ConfirmModal @quitGame="this.close($event)" />
       </div>
     </teleport>
     <div class="gamefield" @click="changeWord()">
@@ -276,98 +276,14 @@
 </template>
 
 <script>
-//import router from '../router/index';
-import { get } from 'idb-keyval';
+import router from '../router/index';
+
+// IMPORT LOGIC
+import getSettings from '../logic/getSettings';
+import getWordList from '../logic/getWordList';
 
 // IMPORT COMPONENTS
 import ConfirmModal from '../components/ConfirmModal.vue';
-
-async function getSettings() {
-  let settings = null;
-
-  // Check indexenDB if user settings are available
-  await get('settings')
-    .then((e) => {
-      settings = e == undefined ? null : e;
-    })
-    .catch((e) => {
-      console.error(
-        'Something went wrong when getting your user settings from your indexenDB...',
-        e
-      );
-    });
-
-  // Return settings if not null
-  if (settings !== null) return settings;
-
-  // TODO;
-  // Replace default value and make a real call
-  // Alleen juiste url plaatsen en then functie fixen.
-  // Check API if user settings are available
-  await fetch('../../data/api.json', {
-    method: 'get',
-  })
-    .then((e) => {
-      //settings = e;
-      settings = {
-        Timer: null,
-        Recording: false,
-        Metronome: null,
-      };
-      console.log('Not Important', e);
-    })
-    .catch((e) => {
-      console.error(
-        'Something went wrong when getting your user settings from our API...',
-        e
-      );
-    });
-
-  return new Promise((res) => {
-    res(settings);
-  });
-}
-
-async function getWordList() {
-  let wordList = null;
-
-  // TODO;
-  // Replace default value and make a real call
-  // Alleen juiste url plaatsen en then functie fixen.
-  // Check API if user settings are available
-  await fetch('../../data/api.json', {
-    method: 'get',
-  })
-    .then((e) => {
-      // wordList = e;
-      wordList = [
-        'Stacks',
-        'Ice',
-        'Cap',
-        'Grass',
-        'Tree',
-        'Cheddar',
-        'Airplane',
-        'Sticky',
-        'Monkey',
-        'Respect',
-        'Heavy',
-        'Big',
-        'Yesterday',
-      ];
-      console.log('Not Important', e);
-    })
-    .catch((e) => {
-      console.error(
-        'Something went wrong when getting your user settings from our API...',
-        e
-      );
-    });
-
-  return new Promise((res) => {
-    res(wordList);
-  });
-}
 
 export default {
   name: 'Game',
@@ -380,6 +296,8 @@ export default {
       started: null,
       running: false,
       timeBegan: null,
+      timeStopped: null,
+      stoppedDuration: 0,
       settings: null,
       isOpen: false,
     };
@@ -408,7 +326,9 @@ export default {
     },
     clockRunning: function() {
       let currentTime = new Date();
-      let timeElapsed = new Date(currentTime - this.timeBegan),
+      let timeElapsed = new Date(
+          currentTime - this.timeBegan - this.stoppedDuration
+        ),
         hour = timeElapsed.getUTCHours(),
         min = timeElapsed.getUTCMinutes(),
         sec = timeElapsed.getUTCSeconds();
@@ -427,28 +347,40 @@ export default {
           this.wordList = data[1];
           this.running = true;
           this.timeBegan = new Date();
-
           this.changeWord();
           this.started = setInterval(this.clockRunning, 10);
         }
       );
     },
-    close: function() {
-      // TODO;
-      // Pauze timer
-
-      // TODO;
-      // Confirm ending game
-
-      // TODO;
-      // Send data to API
-
-      console.log('Your score was;', {
+    close: function(quitGame) {
+      console.log('Current Score;', {
         Words: this.counter,
         Time: this.timer,
       });
+
+      if (quitGame) {
+        // TODO;
+        // Send data to API
+
+        router.push('/');
+      } else {
+        // Start timer & enable changeWord
+        this.running = true;
+        this.stoppedDuration += new Date() - this.timeStopped;
+        this.started = setInterval(this.clockRunning, 10);
+
+        // Close Modal
+        this.isOpen = false;
+      }
+    },
+    openModal: function() {
+      // Pause timer & disable changeWord
+      this.running = false;
+      this.timeStopped = new Date();
+      clearInterval(this.started);
+
+      // Open Modal
       this.isOpen = true;
-      //router.push('/');
     },
   },
   mounted: function() {
@@ -500,7 +432,7 @@ header div img {
   font-size: 5em;
 }
 
-.modal-holder {
+.modal-placeholder {
   width: 100%;
   height: 100vh;
   position: absolute;
