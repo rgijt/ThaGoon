@@ -11,17 +11,276 @@
         <img src="../assets/icons/close.svg" />
       </div>
     </header>
+    <teleport to="body">
+      <div class="modal-holder" v-if="this.isOpen">
+        <ConfirmModal />
+      </div>
+    </teleport>
     <div class="gamefield" @click="changeWord()">
       <div class="placeholder">
-        <h1>{{ word }}</h1>
+        <h1 v-if="word != ''">{{ word }}</h1>
+        <svg
+          v-else
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          style="margin:auto;display:block;"
+          width="200px"
+          height="200px"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="xMidYMid"
+        >
+          <g transform="rotate(0 50 50)">
+            <rect
+              x="49"
+              y="22.5"
+              rx="0.75"
+              ry="0.75"
+              width="2"
+              height="15"
+              fill="#3c3c3c"
+            >
+              <animate
+                attributeName="opacity"
+                values="1;0"
+                keyTimes="0;1"
+                dur="1s"
+                begin="-0.9166666666666666s"
+                repeatCount="indefinite"
+              ></animate>
+            </rect>
+          </g>
+          <g transform="rotate(30 50 50)">
+            <rect
+              x="49"
+              y="22.5"
+              rx="0.75"
+              ry="0.75"
+              width="2"
+              height="15"
+              fill="#3c3c3c"
+            >
+              <animate
+                attributeName="opacity"
+                values="1;0"
+                keyTimes="0;1"
+                dur="1s"
+                begin="-0.8333333333333334s"
+                repeatCount="indefinite"
+              ></animate>
+            </rect>
+          </g>
+          <g transform="rotate(60 50 50)">
+            <rect
+              x="49"
+              y="22.5"
+              rx="0.75"
+              ry="0.75"
+              width="2"
+              height="15"
+              fill="#3c3c3c"
+            >
+              <animate
+                attributeName="opacity"
+                values="1;0"
+                keyTimes="0;1"
+                dur="1s"
+                begin="-0.75s"
+                repeatCount="indefinite"
+              ></animate>
+            </rect>
+          </g>
+          <g transform="rotate(90 50 50)">
+            <rect
+              x="49"
+              y="22.5"
+              rx="0.75"
+              ry="0.75"
+              width="2"
+              height="15"
+              fill="#3c3c3c"
+            >
+              <animate
+                attributeName="opacity"
+                values="1;0"
+                keyTimes="0;1"
+                dur="1s"
+                begin="-0.6666666666666666s"
+                repeatCount="indefinite"
+              ></animate>
+            </rect>
+          </g>
+          <g transform="rotate(120 50 50)">
+            <rect
+              x="49"
+              y="22.5"
+              rx="0.75"
+              ry="0.75"
+              width="2"
+              height="15"
+              fill="#3c3c3c"
+            >
+              <animate
+                attributeName="opacity"
+                values="1;0"
+                keyTimes="0;1"
+                dur="1s"
+                begin="-0.5833333333333334s"
+                repeatCount="indefinite"
+              ></animate>
+            </rect>
+          </g>
+          <g transform="rotate(150 50 50)">
+            <rect
+              x="49"
+              y="22.5"
+              rx="0.75"
+              ry="0.75"
+              width="2"
+              height="15"
+              fill="#3c3c3c"
+            >
+              <animate
+                attributeName="opacity"
+                values="1;0"
+                keyTimes="0;1"
+                dur="1s"
+                begin="-0.5s"
+                repeatCount="indefinite"
+              ></animate>
+            </rect>
+          </g>
+          <g transform="rotate(180 50 50)">
+            <rect
+              x="49"
+              y="22.5"
+              rx="0.75"
+              ry="0.75"
+              width="2"
+              height="15"
+              fill="#3c3c3c"
+            >
+              <animate
+                attributeName="opacity"
+                values="1;0"
+                keyTimes="0;1"
+                dur="1s"
+                begin="-0.4166666666666667s"
+                repeatCount="indefinite"
+              ></animate>
+            </rect>
+          </g>
+          <g transform="rotate(210 50 50)">
+            <rect
+              x="49"
+              y="22.5"
+              rx="0.75"
+              ry="0.75"
+              width="2"
+              height="15"
+              fill="#3c3c3c"
+            >
+              <animate
+                attributeName="opacity"
+                values="1;0"
+                keyTimes="0;1"
+                dur="1s"
+                begin="-0.3333333333333333s"
+                repeatCount="indefinite"
+              ></animate>
+            </rect>
+          </g>
+          <g transform="rotate(240 50 50)">
+            <rect
+              x="49"
+              y="22.5"
+              rx="0.75"
+              ry="0.75"
+              width="2"
+              height="15"
+              fill="#3c3c3c"
+            >
+              <animate
+                attributeName="opacity"
+                values="1;0"
+                keyTimes="0;1"
+                dur="1s"
+                begin="-0.25s"
+                repeatCount="indefinite"
+              ></animate>
+            </rect>
+          </g>
+          <g transform="rotate(270 50 50)">
+            <rect
+              x="49"
+              y="22.5"
+              rx="0.75"
+              ry="0.75"
+              width="2"
+              height="15"
+              fill="#3c3c3c"
+            >
+              <animate
+                attributeName="opacity"
+                values="1;0"
+                keyTimes="0;1"
+                dur="1s"
+                begin="-0.16666666666666666s"
+                repeatCount="indefinite"
+              ></animate>
+            </rect>
+          </g>
+          <g transform="rotate(300 50 50)">
+            <rect
+              x="49"
+              y="22.5"
+              rx="0.75"
+              ry="0.75"
+              width="2"
+              height="15"
+              fill="#3c3c3c"
+            >
+              <animate
+                attributeName="opacity"
+                values="1;0"
+                keyTimes="0;1"
+                dur="1s"
+                begin="-0.08333333333333333s"
+                repeatCount="indefinite"
+              ></animate>
+            </rect>
+          </g>
+          <g transform="rotate(330 50 50)">
+            <rect
+              x="49"
+              y="22.5"
+              rx="0.75"
+              ry="0.75"
+              width="2"
+              height="15"
+              fill="#3c3c3c"
+            >
+              <animate
+                attributeName="opacity"
+                values="1;0"
+                keyTimes="0;1"
+                dur="1s"
+                begin="0s"
+                repeatCount="indefinite"
+              ></animate>
+            </rect>
+          </g>
+        </svg>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import router from '../router/index';
+//import router from '../router/index';
 import { get } from 'idb-keyval';
+
+// IMPORT COMPONENTS
+import ConfirmModal from '../components/ConfirmModal.vue';
 
 async function getSettings() {
   let settings = null;
@@ -116,28 +375,29 @@ export default {
     return {
       counter: 0,
       timer: '00:00:00',
-      word: 'loading...',
+      word: '',
       wordList: [],
       started: null,
       running: false,
       timeBegan: null,
       settings: null,
+      isOpen: false,
     };
+  },
+  components: {
+    ConfirmModal,
   },
   methods: {
     changeWord: function() {
       let randomNumber;
 
-      if (this.wordList != undefined) {
+      if (this.running) {
         do {
           randomNumber = Math.floor(Math.random() * this.wordList.length);
         } while (this.word === this.wordList[randomNumber]);
         this.word = this.wordList[randomNumber];
-      } else {
-        this.word = 'Loading...';
+        this.counter++;
       }
-
-      this.counter++;
     },
     zeroPrefix: function(num, digit) {
       let zero = '';
@@ -161,35 +421,17 @@ export default {
         this.zeroPrefix(sec, 2);
     },
     start: async function() {
-      // Set
-      this.running = true;
-      this.timeBegan = new Date();
+      await Promise.all([await getSettings(), await getWordList()]).then(
+        (data) => {
+          this.settings = data[0];
+          this.wordList = data[1];
+          this.running = true;
+          this.timeBegan = new Date();
 
-      // Get settings from localStorage,API or return default
-      await getSettings()
-        .then((e) => {
-          this.settings = e;
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      // TODO;
-      // Get random wordList from API
-      await getWordList()
-        .then((e) => {
-          setTimeout(function() {
-            this.wordList = e;
-          }, 3000);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-
-      // Start
-      // TODO;
-      // Add metronome functions
-      this.changeWord();
-      this.started = setInterval(this.clockRunning, 10);
+          this.changeWord();
+          this.started = setInterval(this.clockRunning, 10);
+        }
+      );
     },
     close: function() {
       // TODO;
@@ -198,14 +440,15 @@ export default {
       // TODO;
       // Confirm ending game
 
-      // TODO
+      // TODO;
       // Send data to API
 
       console.log('Your score was;', {
         Words: this.counter,
         Time: this.timer,
       });
-      router.push('/');
+      this.isOpen = true;
+      //router.push('/');
     },
   },
   mounted: function() {
@@ -255,5 +498,13 @@ header div img {
 .placeholder h1 {
   margin: auto;
   font-size: 5em;
+}
+
+.modal-holder {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  z-index: 101;
 }
 </style>
