@@ -8,8 +8,11 @@
         <li class="start"><b>start</b></li>
       </router-link>
     </ul>
+
     <div class="score">
-      <img src="../assets/icons/trophy.svg" />
+      <router-link to="/scores">
+        <img src="../assets/icons/trophy.svg" />
+      </router-link>
     </div>
   </div>
 </template>
@@ -20,7 +23,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .main {
   height: 100vh;
   display: flex;
