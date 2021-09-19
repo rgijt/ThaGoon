@@ -9,74 +9,83 @@
         <h1>SCORES</h1>
       </div>
     </header>
-    <div class="scorelist" v-if="this.scorelist != null">
+    <div class="scorelist" v-if="this.scorelist != null" ref="scrollComponent">
       <span v-if="this.scorelist.length === 0">No scores yet...</span>
-      <div class="score">
-        <span><div class="profile-image"></div></span>
-        <span>00:00:00</span>
-        <span>00</span>
-      </div>
-      <div class="score">
-        <span><div class="profile-image"></div></span>
-        <span>00:00:00</span>
-        <span>00</span>
+      <ScoreLine
+        v-for="(score, index) in scorelist"
+        :key="index"
+        :score="score"
+      />
+      <div class="score" v-if="this.scorelist.length !== 0">
+        <span>Dit zijn alle scores...</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { set, get } from 'idb-keyval';
-
-async function getScores() {
-  await set(
-    'scores',
-    JSON.stringify([{ image: '', time: '00:04:32', count: 9 }])
-  );
-
-  await get('scores')
-    .then((e) => {
-      if (e === undefined) {
-        this.scorelist = null;
-      } else {
-        this.scorelist = JSON.parse(e);
-      }
-    })
-    .catch((e) => {
-      console.log(
-        'Something went wrong when getting your user settings from your indexenDB...',
-        e
-      );
-    });
-}
+import ScoreLine from '../components/ScoreLine.vue';
+import { ref, onMounted, onUnmounted } from 'vue';
+import getScoresList from '../logic/getScoresList';
 
 export default {
   name: 'Scores',
-  data: function() {
-    return {
-      scorelist: null,
+  components: {
+    ScoreLine,
+  },
+  setup() {
+    const scorelist = ref([]);
+    const scrollComponent = ref(null);
+
+    const getScorelist = async () => {
+      let scorelistAmount =
+        scorelist.value != null ? scorelist.value.length : 0;
+      try {
+        //scorelist.value = await getScoresList(10, scorelistAmount);
+        let newScoreList = await getScoresList(10, scorelistAmount);
+        scorelist.value.push(...newScoreList);
+      } catch (e) {
+        console.log(e);
+      }
     };
-  },
-  methods: {
-    start: async function() {
-      console.log(this.scorelist);
-      let test = await getScores();
-      console.log(this.scorelist, test);
-      this.scorelist = [
-        { image: '', time: '00:04:32', count: 9 },
-        { image: '', time: '00:04:32', count: 9 },
-      ];
-      console.log(this.scorelist[0]);
-    },
-  },
-  mounted: function() {
-    this.start();
-    console.log(this.scorelist);
+    getScorelist();
+
+    onMounted(() => {
+      document
+        .getElementsByClassName('scorelist')[0]
+        .addEventListener('scroll', handleScroll);
+    });
+
+    onUnmounted(() => {
+      document
+        .getElementsByClassName('scorelist')[0]
+        .addEventListener('scroll', handleScroll);
+    });
+
+    const handleScroll = () => {
+      let element = scrollComponent.value;
+      let scrollY = element.scrollHeight - element.scrollTop;
+      let height = element.offsetHeight;
+      let offset = height - scrollY;
+      if (offset === 0) {
+        getScorelist();
+      }
+    };
+
+    return {
+      scorelist,
+      scrollComponent,
+    };
   },
 };
 </script>
 
 <style scoped>
+.page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 header {
   display: flex;
   flex-direction: column;
@@ -99,31 +108,12 @@ header {
 }
 
 div.scorelist {
-  height: 100%;
+  height: 55%;
   display: block;
   margin: 0 20px;
   overflow-y: scroll;
 }
-
-div.score {
-  display: flex;
-  justify-content: space-around;
-  font-size: 1em;
-  font-weight: 600;
-  padding: 10px;
-  align-items: center;
-}
-div.score .profile-image {
-  display: flex;
-  height: 48px;
-  width: 48px;
-  color: #ffffff;
-  background-color: #3c3c3c;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  background-image: url('../assets/img/geit.jpg');
-  background-position: center;
-  background-size: cover;
+.score:last-child {
+  margin: 40px 0;
 }
 </style>
