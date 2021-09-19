@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 // Pages
 import StartMenu from '../views/StartMenu.vue';
 import Game from '../views/Game.vue';
+import Scores from '../views/Scores.vue';
 
 const routes = [
   {
@@ -14,6 +15,11 @@ const routes = [
     path: '/game',
     name: 'Game',
     component: Game,
+  },
+  {
+    path: '/scores',
+    name: 'Scores',
+    component: Scores,
   },
 ];
 

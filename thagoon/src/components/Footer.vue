@@ -21,6 +21,7 @@ footer {
   position: absolute;
   bottom: 0;
   justify-content: center;
+  background-color: #f5f5f5;
 }
 footer .credits {
   font-size: 1em;
