@@ -14,18 +14,22 @@ async function getScoresList(amount, currentAmount) {
   })
     .then((e) => {
       // scoreList = e;
-      scoresList = [
-        { image: '', time: '00:04:32', count: 9 },
-        { image: '', time: '00:03:12', count: 6 },
-        { image: '', time: '00:08:56', count: 12 },
-        { image: '', time: '00:04:32', count: 9 },
-        { image: '', time: '00:04:32', count: 9 },
-        { image: '', time: '00:03:12', count: 6 },
-        { image: '', time: '00:08:56', count: 12 },
-        { image: '', time: '00:04:32', count: 9 },
-        { image: '', time: '00:08:56', count: 12 },
-        { image: '', time: '00:04:32', count: 9 },
-      ];
+      if (currentAmount < 40) {
+        scoresList = [
+          { image: '', time: '00:04:32', count: 9 },
+          { image: '', time: '00:03:12', count: 6 },
+          { image: '', time: '00:08:56', count: 12 },
+          { image: '', time: '00:04:32', count: 9 },
+          { image: '', time: '00:04:32', count: 9 },
+          { image: '', time: '00:03:12', count: 6 },
+          { image: '', time: '00:08:56', count: 12 },
+          { image: '', time: '00:04:32', count: 9 },
+          { image: '', time: '00:08:56', count: 12 },
+          { image: '', time: '00:04:32', count: 9 },
+        ];
+      } else {
+        scoresList = null;
+      }
       console.log('Not Important', e);
     })
     .catch((e) => {

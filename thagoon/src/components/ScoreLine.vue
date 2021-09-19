@@ -7,13 +7,17 @@
       ></div
     ></span>
     <span>{{ score.time }}</span>
-    <span>{{ score.count }}</span>
+    <span>{{ this.testZeroPrefix(score.count, 2) }}</span>
   </div>
 </template>
 <script>
+import zeroPrefix from '../logic/zeroPrefix';
 export default {
   props: {
     score: Object,
+  },
+  methods: {
+    testZeroPrefix: zeroPrefix,
   },
 };
 </script>
