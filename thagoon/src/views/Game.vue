@@ -309,6 +309,7 @@ export default {
     changeWord: function() {
       let randomNumber;
 
+      console.log(!this.settings.useTimer);
       if (this.running) {
         do {
           randomNumber = Math.floor(Math.random() * this.wordList.length);
@@ -332,7 +333,6 @@ export default {
         hour = timeElapsed.getUTCHours(),
         min = timeElapsed.getUTCMinutes(),
         sec = timeElapsed.getUTCSeconds();
-
       this.timer =
         this.zeroPrefix(hour, 2) +
         ':' +

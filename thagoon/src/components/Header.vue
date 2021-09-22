@@ -4,7 +4,9 @@
       <img src="../assets/icons/logout-1.svg" />
     </div>
     <div class="btn">
-      <img src="../assets/icons/cogwheel.svg" />
+      <router-link to="/settings">
+        <img src="../assets/icons/cogwheel.svg" />
+      </router-link>
     </div>
   </header>
 </template>

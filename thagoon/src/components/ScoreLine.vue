@@ -1,11 +1,11 @@
 <template>
   <div class="score">
-    <span
-      ><div
+    <span>
+      <div
         class="profile-image"
         style="background-image: {{ score.image }};"
-      ></div
-    ></span>
+      ></div>
+    </span>
     <span>{{ score.time }}</span>
     <span>{{ this.testZeroPrefix(score.count, 2) }}</span>
   </div>
