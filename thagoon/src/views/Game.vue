@@ -277,7 +277,6 @@
 
 <script>
 import router from '../router/index';
-
 // IMPORT LOGIC
 import getSettings from '../logic/getSettings';
 import getWordList from '../logic/getWordList';
@@ -309,7 +308,6 @@ export default {
     changeWord: function() {
       let randomNumber;
 
-      console.log(!this.settings.useTimer);
       if (this.running) {
         do {
           randomNumber = Math.floor(Math.random() * this.wordList.length);
@@ -318,6 +316,7 @@ export default {
         this.counter++;
       }
     },
+
     zeroPrefix: function(num, digit) {
       let zero = '';
       for (let i = 0; i < digit; i++) {
@@ -333,6 +332,7 @@ export default {
         hour = timeElapsed.getUTCHours(),
         min = timeElapsed.getUTCMinutes(),
         sec = timeElapsed.getUTCSeconds();
+
       this.timer =
         this.zeroPrefix(hour, 2) +
         ':' +
