@@ -2,15 +2,17 @@
   <div class="page">
     <header>
       <router-link to="/">
-        <img class="close" src="../assets/icons/close.svg" />
+        <img src="../assets/icons/close.svg" />
       </router-link>
-      <div class="head">
-        <img src="../assets/icons/trophy.svg" />
-        <h1>SCORES</h1>
-      </div>
     </header>
+    <div class="top">
+      <img src="../assets/icons/trophy.svg" />
+      <h1>SCORES</h1>
+    </div>
     <div class="scorelist" v-if="this.scorelist != null" ref="scrollComponent">
-      <span v-if="this.scorelist.length === 0">No scores yet...</span>
+      <span v-if="this.scorelist.length === 0 && this.totalScorelist === true"
+        >No scores yet...</span
+      >
       <ScoreLine
         v-for="(score, index) in scorelist"
         :key="index"
@@ -282,6 +284,7 @@
 import ScoreLine from '../components/ScoreLine.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 import getScoresList from '../logic/getScoresList';
+import router from '../router/index';
 
 export default {
   name: 'Scores',
@@ -309,6 +312,10 @@ export default {
     };
     getScorelist();
 
+    const closeSettings = () => {
+      router.push('/');
+    };
+
     onMounted(() => {
       document
         .getElementsByClassName('scorelist')[0]
@@ -335,6 +342,7 @@ export default {
       scorelist,
       scrollComponent,
       totalScorelist,
+      closeSettings,
     };
   },
 };
@@ -348,23 +356,27 @@ export default {
 }
 header {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  padding: 20px;
+  justify-content: flex-end;
 }
-.close {
+header img {
   width: 32px;
   height: 32px;
+  margin: 20px;
 }
-.head {
+.top {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.head img {
+.top img {
   width: 128px;
   height: 128px;
+  margin: auto;
 }
-.head h1 {
+.top h1 {
   font-size: 2em;
+  margin-top: 10px;
 }
 
 div.scorelist {

@@ -277,7 +277,6 @@
 
 <script>
 import router from '../router/index';
-
 // IMPORT LOGIC
 import getSettings from '../logic/getSettings';
 import getWordList from '../logic/getWordList';
@@ -317,6 +316,7 @@ export default {
         this.counter++;
       }
     },
+
     zeroPrefix: function(num, digit) {
       let zero = '';
       for (let i = 0; i < digit; i++) {

@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import StartMenu from '../views/StartMenu.vue';
 import Game from '../views/Game.vue';
 import Scores from '../views/Scores.vue';
+import Settings from '../views/Settings.vue';
 
 const routes = [
   {
@@ -20,6 +21,11 @@ const routes = [
     path: '/scores',
     name: 'Scores',
     component: Scores,
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: Settings,
   },
 ];
 
