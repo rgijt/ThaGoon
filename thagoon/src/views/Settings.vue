@@ -10,7 +10,7 @@
       <h1>SETTINGS</h1>
     </div>
     <div class="main">
-      <div class="option-group" v-if="this.settings != null">
+      <div class="option-group" v-if="this.gameSettings != null">
         <span class="option-group-title"><b>Ingame</b></span>
         <!-- Timer -->
         <div class="option-holder">
@@ -18,7 +18,7 @@
             <span>Timer</span>
             <input
               type="checkbox"
-              v-model="this.settings.useTimer"
+              v-model="this.gameSettings.UseTimer"
               @change="this.updateSettings()"
             />
             <div>
@@ -27,8 +27,8 @@
                 type="number"
                 min="0"
                 max="60"
-                v-model="this.settings.timer"
-                :disabled="!this.settings.useTimer"
+                v-model="this.gameSettings.Timer"
+                :disabled="!this.gameSettings.UseTimer"
                 @change="this.updateSettings()"
               />S
             </div>
@@ -40,7 +40,7 @@
             <span>Recording</span>
             <input
               type="checkbox"
-              v-model="this.settings.useRecording"
+              v-model="this.gameSettings.UseRecording"
               @change="this.updateSettings()"
             />
           </div>
@@ -51,7 +51,7 @@
             <span>Metronome</span>
             <input
               type="checkbox"
-              v-model="this.settings.useMetronome"
+              v-model="this.gameSettings.UseMetronome"
               @change="this.updateSettings()"
             />
             <input
@@ -59,8 +59,8 @@
               type="number"
               min="80"
               max="180"
-              v-model="this.settings.metronome"
-              :disabled="!this.settings.useMetronome"
+              v-model="this.gameSettings.Metronome"
+              :disabled="!this.gameSettings.UseMetronome"
               @change="this.updateSettings()"
             />
           </div>
@@ -105,11 +105,11 @@
   </div>
 </template>
 <script>
-import getSettings from '../logic/getSettings';
 import getUser from '../logic/getUser';
 import setUser from '../logic/setUser';
-import setSettings from '../logic/setSettings';
 import { ref } from 'vue';
+
+import settings from '../logic/settings';
 
 export default {
   name: 'Settings',
@@ -118,14 +118,7 @@ export default {
       alert('Log out');
     },
     updateSettings: function() {
-      setSettings(
-        this.settings.timer,
-        this.settings.useTimer,
-        this.settings.useRecording,
-        this.settings.metronome,
-        this.settings.useMetronome,
-        false
-      );
+      settings.SetGameSettings(this.gameSettings);
     },
     updateUser: function() {
       console.log('test');
@@ -139,18 +132,17 @@ export default {
     },
   },
   setup() {
-    const settings = ref(null);
+    const gameSettings = ref(null);
     const userDetail = ref(null);
 
-    const getUserSettings = async () => {
+    const getGameSettings = async () => {
       try {
-        let userSettings = await getSettings();
-        settings.value = userSettings;
+        gameSettings.value = await settings.GetGameSettings();
       } catch (e) {
         console.log(e);
       }
     };
-    getUserSettings();
+    getGameSettings();
     const getUserDetail = async () => {
       try {
         let user = await getUser();
@@ -162,7 +154,7 @@ export default {
     getUserDetail();
 
     return {
-      settings,
+      gameSettings,
       userDetail,
     };
   },

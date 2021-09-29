@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-// Pages
+// VIEWS
 import StartMenu from '../views/StartMenu.vue';
 import Game from '../views/Game.vue';
 import Scores from '../views/Scores.vue';

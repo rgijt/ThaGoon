@@ -27,11 +27,13 @@
 
 <script>
 import router from '../router/index';
+
 // IMPORT LOGIC
-import getSettings from '../logic/getSettings';
 import getWordList from '../logic/getWordList';
 import filters from '../logic/filters';
 import stopwatch from '../logic/stopwatch';
+import settings from '../logic/settings';
+
 // IMPORT COMPONENTS
 import ConfirmModal from '../components/ConfirmModal.vue';
 import Loader from '../components/Loader.vue';
@@ -59,19 +61,21 @@ export default {
         do {
           randomNumber = Math.floor(Math.random() * this.wordList.length);
         } while (this.word === this.wordList[randomNumber]);
+
         this.word = this.wordList[randomNumber];
         this.counter++;
       }
     },
     start: async function() {
-      await Promise.all([await getSettings(), await getWordList()]).then(
-        (data) => {
-          this.settings = data[0];
-          this.wordList = data[1];
-          stopwatch.Start();
-          this.changeWord();
-        }
-      );
+      await Promise.all([
+        await settings.GetGameSettings(),
+        await getWordList(),
+      ]).then((data) => {
+        this.settings = data[0];
+        this.wordList = data[1];
+        stopwatch.Start();
+        this.changeWord();
+      });
     },
     close: function(quitGame) {
       console.log('Current Score;', {
