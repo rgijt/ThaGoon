@@ -2,23 +2,29 @@
   <div class="game">
     <header>
       <div>
-        <span>{{ filters.ZeroPrefix(counter) }}</span>
+        <span>{{ filters.ZeroPrefix(this.Counter) }}</span>
       </div>
       <div>
-        <span> {{ filters.StopwatchTime(stopwatch.Time) }}</span>
+        <span> {{ filters.StopwatchTime(this.stopwatch.Time) }}</span>
       </div>
-      <div class="btn" @click="openModal()">
+      <div class="btn" @click="this.OpenModal()">
         <img src="../assets/icons/close.svg" />
       </div>
     </header>
     <teleport to="body">
-      <div class="modal-placeholder" v-if="this.isOpen">
-        <ConfirmModal @quitGame="this.close($event)" />
+      <div class="modal-placeholder" v-if="this.IsOpen">
+        <ConfirmModal @quitGame="this.Close($event)" />
       </div>
     </teleport>
-    <div class="gamefield" @click="changeWord()">
+    <div class="gamefield" @click="this.ChangeWord()">
       <div class="placeholder">
-        <h1 v-if="word != ''">{{ word }}</h1>
+        <h1
+          v-if="this.Word != ''"
+          ref="wordPlaceholder"
+          class="animate__animated"
+        >
+          {{ this.Word }}
+        </h1>
         <Loader v-else />
       </div>
     </div>
@@ -27,6 +33,7 @@
 
 <script>
 import router from '../router/index';
+import { ref, onMounted } from 'vue';
 
 // IMPORT LOGIC
 import getWordList from '../logic/getWordList';
@@ -40,47 +47,71 @@ import Loader from '../components/Loader.vue';
 
 export default {
   name: 'Game',
-  data: function() {
-    return {
-      counter: 0,
-      word: '',
-      wordList: [],
-      settings: null,
-      isOpen: false,
-    };
-  },
   components: {
     ConfirmModal,
     Loader,
   },
-  methods: {
-    changeWord: function() {
+  setup() {
+    // PRIVATE VARIABLES
+    const wordPlaceholder = ref(null);
+    const wordList = ref([]);
+
+    // PUBLIC VARIABLES
+    const Word = ref('');
+    const Counter = ref(0);
+    const GameSettings = ref(null);
+    const IsOpen = ref(false);
+
+    // PRIVATE METHODS
+    const getRandomWord = function() {
       let randomNumber;
+      do {
+        randomNumber = Math.floor(Math.random() * wordList.value.length);
+      } while (Word.value === wordList.value[randomNumber]);
+      return wordList.value[randomNumber];
+    };
 
-      if (stopwatch.IsRunning) {
-        do {
-          randomNumber = Math.floor(Math.random() * this.wordList.length);
-        } while (this.word === this.wordList[randomNumber]);
-
-        this.word = this.wordList[randomNumber];
-        this.counter++;
-      }
-    },
-    start: async function() {
+    const start = async function() {
       await Promise.all([
         await settings.GetGameSettings(),
         await getWordList(),
       ]).then((data) => {
-        this.settings = data[0];
-        this.wordList = data[1];
+        GameSettings.value = data[0];
+        wordList.value = data[1];
         stopwatch.Start();
-        this.changeWord();
+        Word.value = getRandomWord();
+        Counter.value++;
       });
-    },
-    close: function(quitGame) {
+    };
+
+    // PUBLIC METHODS
+    const ChangeWord = function() {
+      let animationEndTriggerd = false;
+
+      if (stopwatch.IsRunning && wordPlaceholder.value != null) {
+        wordPlaceholder.value.classList.add('animate__backOutRight');
+        wordPlaceholder.value.addEventListener('animationend', () => {
+          if (!animationEndTriggerd) {
+            animationEndTriggerd = true;
+            Word.value = getRandomWord();
+            Counter.value++;
+            wordPlaceholder.value.classList.remove('animate__backOutRight');
+            wordPlaceholder.value.classList.add('animate__backInLeft');
+          }
+        });
+      }
+    };
+
+    const OpenModal = function() {
+      // Pause timer & disable changeWord
+      stopwatch.Stop();
+      // Open Modal
+      IsOpen.value = true;
+    };
+
+    const Close = function(quitGame) {
       console.log('Current Score;', {
-        Words: this.counter,
-        Time: this.timer,
+        Words: Counter.value,
       });
 
       if (quitGame) {
@@ -92,27 +123,25 @@ export default {
         // Start timer & enable changeWord
         stopwatch.Start();
         // Close Modal
-        this.isOpen = false;
+        IsOpen.value = false;
       }
-    },
-    openModal: function() {
-      // Pause timer & disable changeWord
-      stopwatch.Stop();
-      // Open Modal
-      this.isOpen = true;
-    },
-  },
-  mounted: function() {
-    this.start();
-  },
-  setup() {
-    // Setup
+    };
 
-    // Methods
+    onMounted(async function() {
+      await start();
+    });
 
     return {
       filters,
       stopwatch,
+      wordPlaceholder,
+      ChangeWord,
+      OpenModal,
+      Close,
+      Word,
+      IsOpen,
+      Counter,
+      GameSettings,
     };
   },
 };
@@ -159,6 +188,7 @@ header div img {
 .placeholder h1 {
   margin: auto;
   font-size: 5em;
+  --animate-duration: 0.8s;
 }
 
 .modal-placeholder {

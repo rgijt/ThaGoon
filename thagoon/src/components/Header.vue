@@ -1,9 +1,6 @@
 <template>
   <header v-if="$route.path === '/'">
     <div class="btn">
-      <img src="../assets/icons/logout-1.svg" />
-    </div>
-    <div class="btn">
       <router-link to="/settings">
         <img src="../assets/icons/cogwheel.svg" />
       </router-link>
@@ -24,7 +21,7 @@ header {
   position: absolute;
   top: 0;
   z-index: 99;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 header div {
   padding: 20px;
