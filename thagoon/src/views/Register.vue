@@ -6,6 +6,10 @@
     </div>
     <form>
       <fieldset>
+        <span>Username</span>
+        <input type="text" />
+      </fieldset>
+      <fieldset>
         <span>Email</span>
         <input type="email" />
       </fieldset>
@@ -13,15 +17,18 @@
         <span>Password</span>
         <input type="password" />
       </fieldset>
-      <a class="btn" href="">login</a>
-      <router-link to="/forgotpassword">Forgot Password?</router-link><br />
-      <router-link to="/register">Create a Account</router-link>
+      <fieldset>
+        <span>Confirm Password</span>
+        <input type="password" />
+      </fieldset>
+      <a class="btn" href="">Sign Up</a>
+      <router-link to="/login">Go back</router-link>
     </form>
   </div>
 </template>
 <script>
 export default {
-  name: 'Login',
+  name: 'Register',
 };
 </script>
 
