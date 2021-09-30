@@ -5,6 +5,7 @@ import StartMenu from '../views/StartMenu.vue';
 import Game from '../views/Game.vue';
 import Scores from '../views/Scores.vue';
 import Settings from '../views/Settings.vue';
+import Login from '../views/Login.vue';
 
 const routes = [
   {
@@ -26,6 +27,11 @@ const routes = [
     path: '/settings',
     name: 'Settings',
     component: Settings,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
   },
 ];
 
