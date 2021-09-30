@@ -15,6 +15,15 @@ export default {
     Header,
     Footer,
   },
+  setup() {
+    // Get app settings
+    // if none than push default
+  },
+  watch: {
+    $route(to, from) {
+      console.log('watch $route: ', to, from);
+    },
+  },
 };
 </script>
 

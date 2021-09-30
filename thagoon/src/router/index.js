@@ -5,6 +5,9 @@ import StartMenu from '../views/StartMenu.vue';
 import Game from '../views/Game.vue';
 import Scores from '../views/Scores.vue';
 import Settings from '../views/Settings.vue';
+import Login from '../views/Login.vue';
+import ForgotPassword from '../views/ForgotPassword.vue';
+import Register from '../views/Register.vue';
 
 const routes = [
   {
@@ -26,6 +29,21 @@ const routes = [
     path: '/settings',
     name: 'Settings',
     component: Settings,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+  },
+  {
+    path: '/forgotpassword',
+    name: 'ForgotPassword',
+    component: ForgotPassword,
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
   },
 ];
 
