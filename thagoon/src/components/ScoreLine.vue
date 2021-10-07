@@ -1,14 +1,14 @@
 <template>
-  <div class="score">
-    <span>
+  <w-flex wrap class="score">
+    <span class="xs4">
       <div
         class="profile-image"
         style="background-image: {{ score.image }};"
       ></div>
     </span>
-    <span>{{ score.time }}</span>
-    <span>{{ filters.ZeroPrefix(score.count) }}</span>
-  </div>
+    <span class="xs4">{{ score.time }}</span>
+    <span class="xs4">{{ filters.ZeroPrefix(score.count) }}</span>
+  </w-flex>
 </template>
 <script>
 import filters from '../logic/filters.js';
@@ -29,7 +29,7 @@ div.score {
   justify-content: space-around;
   font-size: 1em;
   font-weight: 600;
-  padding: 10px;
+  padding: 20px 10px;
   align-items: center;
 }
 div.score .profile-image {

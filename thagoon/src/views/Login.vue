@@ -4,73 +4,93 @@
       <img src="../assets/icons/ThaGoonIcon-192.png" />
       <h1>ThaGoon</h1>
     </div>
-    <form>
-      <fieldset>
-        <span>Email</span>
-        <input type="email" />
-      </fieldset>
-      <fieldset>
-        <span>Password</span>
-        <input type="password" />
-      </fieldset>
-      <a class="btn" href="">login</a>
-      <router-link to="/forgotpassword">Forgot Password?</router-link><br />
-      <router-link to="/register">Create a Account</router-link>
-    </form>
+    <w-flex wrap>
+      <w-form class="xs12 ">
+        <w-transition-slide-fade>
+          <w-alert v-if="!this.ValidForm" error outline>{{
+            this.ErrorMessage
+          }}</w-alert>
+        </w-transition-slide-fade>
+        <w-flex class="xs12 align-center line">
+          <span class="xs4">Email</span>
+          <w-input type="email" class="xs8" v-model="this.Email"> </w-input>
+        </w-flex>
+        <w-flex class="xs12 align-center line">
+          <span class="xs4">Password</span>
+          <w-input
+            type="password"
+            class="xs8"
+            v-model="this.Password"
+            :validators="[required]"
+          >
+          </w-input>
+        </w-flex>
+        <a class="btn" href="javascript:void(0);" @click="this.Login">login</a>
+        <w-flex wrap>
+          <router-link to="/register" class="xs5">Create a Account</router-link>
+          <span class="xs2">or</span>
+          <router-link to="/forgotpassword" class="xs5"
+            >Forgot Password?</router-link
+          >
+        </w-flex>
+      </w-form>
+    </w-flex>
   </div>
 </template>
 <script>
+import { ref } from 'vue';
 export default {
   name: 'Login',
+  setup() {
+    const Email = ref('');
+    const Password = ref('');
+    const ValidForm = ref(true);
+    const ErrorMessage = ref('');
+
+    const Login = () => {
+      console.log(Email.value, Password.value);
+      if (Email.value != '' && Email.value != null) {
+        alert('NICE');
+        ValidForm.value = true;
+      } else {
+        ErrorMessage.value = 'Not all fields are filled in!';
+        ValidForm.value = false;
+      }
+    };
+
+    return {
+      Email,
+      Password,
+      ValidForm,
+      ErrorMessage,
+      Login,
+    };
+  },
 };
 </script>
 
 <style scoped>
 .page {
-  height: calc(100vh - 43px);
-  display: flex;
-  flex-direction: column;
-  max-width: 512px;
-  margin: auto;
+  padding: 0 20px;
 }
 form {
+  color: #3c3c3c;
   display: flex;
   flex-direction: column;
   margin: auto 0;
-}
-input {
-  width: 50%;
-  border: 0;
-  border-bottom: 1px solid #3c3c3c;
-  background-color: #f5f5f5;
-  font-family: 'Lato', sans-serif;
+  text-align: center;
   font-weight: 600;
 }
-input:focus-visible {
-  outline: none;
+.w-alert {
+  margin-top: -52px;
 }
-
-fieldset {
-  border: 0;
-  font-weight: 600;
-  margin: 10px;
-  display: flex;
-  justify-content: space-between;
+.line {
+  text-align: start;
 }
-
 a.btn {
-  background-color: #ff5a5f;
-  color: #ffffff;
-  text-transform: uppercase;
-  font-size: 2em;
-  padding: 10px;
   margin: 20px 40px;
-  border-radius: 5px;
-  transition: all 0.3s ease-in-out;
+  font-size: 2em;
   font-weight: 600;
-}
-a.btn:hover {
-  transform: scale(1.02);
 }
 
 .header {

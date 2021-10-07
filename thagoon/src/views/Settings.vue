@@ -10,18 +10,19 @@
       <h1>SETTINGS</h1>
     </div>
     <div class="main">
-      <div class="option-group" v-if="this.gameSettings != null">
-        <span class="option-group-title"><b>Ingame</b></span>
-        <!-- Timer -->
-        <div class="option-holder">
-          <div class="option">
-            <span>Timer</span>
-            <input
-              type="checkbox"
+      <w-flex wrap class="column option-wrapper">
+        <div v-if="this.gameSettings != null">
+          <span class="xs12 option-title">Ingame</span>
+          <w-flex wrap class="align-center option">
+            <span class="xs4">Timer</span>
+            <w-switch
+              class="xs4 justify-center"
+              :model-value="this.gameSettings.UseTimer"
               v-model="this.gameSettings.UseTimer"
               @change="this.updateSettings()"
-            />
-            <div>
+            >
+            </w-switch>
+            <div class="number-input xs4">
               <input
                 class="timer-input"
                 type="number"
@@ -32,79 +33,105 @@
                 @change="this.updateSettings()"
               />S
             </div>
-          </div>
-        </div>
-        <!-- Recording -->
-        <div class="option-holder">
-          <div class="option">
-            <span>Recording</span>
-            <input
-              type="checkbox"
+          </w-flex>
+
+          <w-flex wrap class="align-center option">
+            <span class="xs4">Recording</span>
+            <div class="xs4"></div>
+            <w-switch
+              class="xs4 justify-center"
+              :model-value="this.gameSettings.UseRecording"
               v-model="this.gameSettings.UseRecording"
               @change="this.updateSettings()"
-            />
-          </div>
-        </div>
-        <!-- Metronome -->
-        <div class="option-holder">
-          <div class="option">
-            <span>Metronome</span>
-            <input
-              type="checkbox"
+            ></w-switch>
+          </w-flex>
+
+          <w-flex wrap class="align-center option">
+            <span class="xs4">Metronome</span>
+            <w-switch
+              class="xs4 justify-center"
+              :model-value="this.gameSettings.UseMetronome"
               v-model="this.gameSettings.UseMetronome"
               @change="this.updateSettings()"
-            />
-            <input
-              class="bpm-input"
-              type="number"
-              min="80"
-              max="180"
-              v-model="this.gameSettings.Metronome"
-              :disabled="!this.gameSettings.UseMetronome"
-              @change="this.updateSettings()"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="option-group" v-if="this.userDetail != null">
-        <span class="option-group-title"><b>User</b></span>
-        <!-- Profile image -->
-        <div class="option-holder">
-          <div class="option">
-            <div class="name">
-              <div
-                class="profile-image"
-                :style="{
-                  backgroundImage:
-                    'url(' + this.userDetail.ProfileImageUrl + ')',
-                }"
-              ></div>
+            ></w-switch>
+            <div class="number-input xs4">
+              <input
+                class="bpm-input"
+                type="number"
+                min="80"
+                max="180"
+                v-model="this.gameSettings.Metronome"
+                :disabled="!this.gameSettings.UseMetronome"
+                @change="this.updateSettings()"
+              />
             </div>
-            <input type="file" class="update-img-btn" />
-          </div>
+          </w-flex>
+
+          <w-flex wrap class="align-center option">
+            <span class="xs4">Animation</span>
+            <w-switch
+              class="xs4 justify-center"
+              :model-value="this.gameSettings.UseAnimation"
+              v-model="this.gameSettings.UseAnimation"
+              @change="this.updateSettings()"
+            ></w-switch>
+            <w-select
+              :items="this.animationSelection"
+              :no-unselect="true"
+              :model-value="this.gameSettings.AnimationSpeed"
+              v-model="this.gameSettings.AnimationSpeed"
+              @change="this.updateSettings()"
+              class="xs4"
+            ></w-select>
+          </w-flex>
         </div>
-        <!-- Username -->
-        <div class="option-holder">
-          <div class="option">
-            <span>Username</span>
+        <div v-if="this.userDetail != null">
+          <span class="xs12 option-title">User</span>
+          <w-flex wrap class="align-center column option">
+            <w-flex wrap class="xs6 justify-center">
+              <w-image
+                class="bd1 bdrsr sh1"
+                :width="96"
+                :height="96"
+                :src="this.userDetail.ProfileImageUrl"
+              >
+              </w-image>
+            </w-flex>
+            <a href="javascript:void(0);" class="btn" @click="this.UploadImage"
+              >Change Image</a
+            >
             <input
-              class="username-input"
-              type="text"
+              style="display: none"
+              type="file"
+              ref="ImageUploader"
+              accept="image/*"
+              @change="this.ChangeProfileImageUrl"
+            />
+          </w-flex>
+          <w-flex wrap class="align-center option">
+            <span class="xs6">Username</span>
+            <w-input
+              class="xs6"
               v-model="this.userDetail.Username"
               @change="this.updateUser()"
-            />
-          </div>
+            >
+            </w-input>
+          </w-flex>
+          <w-flex wrap class="align-center option text-center">
+            <a
+              href="javascript:void(0);"
+              class="logout-btn xs12"
+              @click="this.LogOut()"
+              >Logout</a
+            >
+          </w-flex>
         </div>
-        <div class="option-holder">
-          <div class="option">
-            <a class="logout-btn" @click="this.logOut()">Logout</a>
-          </div>
-        </div>
-      </div>
+      </w-flex>
     </div>
   </div>
 </template>
 <script>
+import router from '../router/index';
 import getUser from '../logic/getUser';
 import setUser from '../logic/setUser';
 import { ref } from 'vue';
@@ -114,10 +141,8 @@ import settings from '../logic/settings';
 export default {
   name: 'Settings',
   methods: {
-    logOut: function() {
-      alert('Log out');
-    },
     updateSettings: function() {
+      console.log(this.gameSettings);
       settings.SetGameSettings(this.gameSettings);
     },
     updateUser: function() {
@@ -132,8 +157,14 @@ export default {
     },
   },
   setup() {
+    const ImageUploader = ref(null);
     const gameSettings = ref(null);
     const userDetail = ref(null);
+    const animationSelection = [
+      { label: 'Slow', value: 0.8 },
+      { label: 'Normal', value: 0.5 },
+      { label: 'Fast', value: 0.2 },
+    ];
 
     const getGameSettings = async () => {
       try {
@@ -153,19 +184,37 @@ export default {
     };
     getUserDetail();
 
+    // PUBLIC METHODS
+    const UploadImage = function() {
+      ImageUploader.value.click();
+    };
+    const ChangeProfileImageUrl = async function(e) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+
+      let DataUrl = reader.readAsDataURL(file);
+      console.log(DataUrl);
+      reader.onload = (e) => {
+        userDetail.value.ProfileImageUrl = e.target.result;
+      };
+    };
+    const LogOut = function() {
+      router.push('/login');
+    };
+
     return {
+      ImageUploader,
       gameSettings,
       userDetail,
+      animationSelection,
+      ChangeProfileImageUrl,
+      UploadImage,
+      LogOut,
     };
   },
 };
 </script>
 <style scoped>
-.page {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
 header {
   display: flex;
   justify-content: flex-end;
@@ -192,69 +241,25 @@ header img {
   margin-top: 10px;
 }
 
-/* MAIN */
 .main {
   font-weight: 600;
   display: block;
   margin: 0 20px 45px 20px;
   overflow-y: scroll;
 }
-.option-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+
+.option-wrapper {
+  text-align: start;
 }
-.option-group .option-group-title {
+.option-title {
   color: #3c3c3c;
   font-size: 1.2em;
   font-style: italic;
 }
-.option-group .option-holder {
-  width: 100%;
-}
-.option-group .option-holder .option {
-  display: flex;
-  margin: 20px;
-  justify-content: space-between;
-  align-items: center;
+.option {
+  margin: 30px 10px !important;
 }
 
-.option .profile-image {
-  display: flex;
-  height: 48px;
-  width: 48px;
-  color: #ffffff;
-  background-color: #3c3c3c;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  background-position: center;
-  background-size: cover;
-}
-.option .update-img-btn {
-  color: #ffffff;
-  background-color: #ff5a5f;
-  padding: 10px;
-  border-radius: 5px;
-}
-.option .logout-btn {
-  margin: auto;
-  color: #3c3c3c;
-  font-family: 'Lato', sans-serif;
-  font-size: 1em;
-  text-decoration: underline;
-}
-.option input[type='text'] {
-  width: 50%;
-  border: 0;
-  border-bottom: 1px solid #3c3c3c;
-  background-color: #f5f5f5;
-  font-family: 'Lato', sans-serif;
-  font-weight: 600;
-}
-.option input[type='text']:focus-visible {
-  outline: none;
-}
 .option input[type='number'] {
   height: 32px;
   border: 1px solid #323232;
@@ -263,11 +268,29 @@ header img {
   font-family: 'Lato', sans-serif;
   font-weight: 600;
 }
-.option input[type='number'].timer-input {
-  width: 32px;
-  margin-right: 5px;
+.option input[type='number'].timer-input[data-v-53cc84dd] {
+  width: 75%;
+  margin-right: 10px;
 }
-.option input[type='number'].bpm-input {
-  width: 25%;
+.option input[type='number'].bpm-input[data-v-53cc84dd] {
+  width: 100%;
+}
+
+/* USER SETTINGS */
+
+.upload-btn {
+  background: #ff5a5f;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  margin: 20px 0;
+}
+
+.option .logout-btn {
+  color: #3c3c3c;
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+  text-decoration: underline;
 }
 </style>

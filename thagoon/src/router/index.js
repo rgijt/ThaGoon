@@ -14,21 +14,37 @@ const routes = [
     path: '/',
     name: 'StartMenu',
     component: StartMenu,
+    meta: {
+      enterClass: 'test-transition',
+      leaveClass: 'test-transition',
+    },
   },
   {
     path: '/game',
     name: 'Game',
     component: Game,
+    meta: {
+      enterClass: 'animate__animated animate__slideInRight',
+      leaveClass: 'animate__animated animate__slideOutRight',
+    },
   },
   {
     path: '/scores',
     name: 'Scores',
     component: Scores,
+    meta: {
+      enterClass: 'animate__animated animate__slideInUp',
+      leaveClass: 'animate__animated animate__slideOutDown',
+    },
   },
   {
     path: '/settings',
     name: 'Settings',
     component: Settings,
+    meta: {
+      enterClass: 'animate__animated animate__slideInDown',
+      leaveClass: 'animate__animated animate__slideOutUp',
+    },
   },
   {
     path: '/login',
