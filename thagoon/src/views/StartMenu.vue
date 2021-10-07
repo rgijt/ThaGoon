@@ -1,11 +1,11 @@
 <template>
-  <div class="main">
+  <div class="page">
     <div class="logo">
       <h1>ThaGoon</h1>
     </div>
     <ul class="menu">
       <router-link to="/game">
-        <li class="start"><b>start</b></li>
+        <li class="btn start"><b>start</b></li>
       </router-link>
     </ul>
 
@@ -24,10 +24,7 @@ export default {
 </script>
 
 <style scoped>
-.main {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+.page {
   justify-content: center;
   align-items: center;
 }
@@ -45,19 +42,8 @@ ul.menu {
   width: 100%;
   list-style-type: none;
 }
-ul.menu li {
-  margin: 20px 40px;
-  padding: 5px;
-  color: #ffffff;
-  background-color: #087e8b;
-  border-radius: 5px;
-  transition: all 0.3s ease-in-out;
-  text-transform: uppercase;
-}
-ul.menu li:hover {
-  transform: scale(1.02);
-}
 ul.menu li.start {
+  margin: 20px 40px;
   font-size: 4em;
   background-color: #ff5a5f;
 }

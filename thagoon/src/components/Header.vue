@@ -1,6 +1,6 @@
 <template>
   <header v-if="$route.path === '/'">
-    <div class="btn">
+    <div>
       <router-link to="/settings">
         <img src="../assets/icons/cogwheel.svg" />
       </router-link>

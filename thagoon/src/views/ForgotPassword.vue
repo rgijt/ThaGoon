@@ -4,68 +4,65 @@
       <img src="../assets/icons/ThaGoonIcon-192.png" />
       <h1>ThaGoon</h1>
     </div>
-    <form>
-      <fieldset>
-        <span>Email</span>
-        <input type="email" />
-      </fieldset>
-      <a class="btn" href="">Send</a>
-      <router-link to="/login">Go back</router-link>
-    </form>
+    <w-flex wrap>
+      <w-form class="xs12 ">
+        <w-transition-slide-fade>
+          <w-alert v-if="this.ErrorMessage != ''" error outline>{{
+            this.ErrorMessage
+          }}</w-alert>
+        </w-transition-slide-fade>
+        <w-flex class="xs12 align-center line">
+          <span class="xs4">Email</span>
+          <w-input type="email" class="xs8" v-model="this.Email"> </w-input>
+        </w-flex>
+        <a class="btn" href="javascript:void(0);" @click="this.Send">Send</a>
+        <router-link to="/login">Go back</router-link>
+      </w-form>
+    </w-flex>
   </div>
 </template>
 <script>
+import { ref } from 'vue';
 export default {
   name: 'ForgotPassword',
+  setup() {
+    const Email = ref('');
+    const ErrorMessage = ref('');
+
+    const Send = () => {
+      ErrorMessage.value = 'It workes again and again';
+    };
+    return {
+      Email,
+      ErrorMessage,
+      Send,
+    };
+  },
 };
 </script>
 
 <style scoped>
 .page {
-  height: calc(100vh - 43px);
-  display: flex;
-  flex-direction: column;
-  max-width: 512px;
-  margin: auto;
+  padding: 0 20px;
 }
 form {
+  color: #3c3c3c;
   display: flex;
   flex-direction: column;
   margin: auto 0;
-}
-input {
-  width: 50%;
-  border: 0;
-  border-bottom: 1px solid #3c3c3c;
-  background-color: #f5f5f5;
-  font-family: 'Lato', sans-serif;
+  text-align: center;
   font-weight: 600;
 }
-input:focus-visible {
-  outline: none;
+.w-alert {
+  margin-top: -52px;
 }
-
-fieldset {
-  border: 0;
-  font-weight: 600;
-  margin: 10px;
-  display: flex;
-  justify-content: space-between;
+.line {
+  text-align: start;
 }
-
 a.btn {
-  background-color: #ff5a5f;
-  color: #ffffff;
-  text-transform: uppercase;
-  font-size: 2em;
-  padding: 10px;
   margin: 20px 40px;
-  border-radius: 5px;
-  transition: all 0.3s ease-in-out;
+  font-size: 2em;
   font-weight: 600;
-}
-a.btn:hover {
-  transform: scale(1.02);
 }
 
 .header {

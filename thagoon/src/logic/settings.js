@@ -53,11 +53,19 @@ const SetGameSettings = async function(gameSettings) {
     gameSettings.Metronome != undefined &&
     typeof gameSettings.Metronome == 'number' &&
     gameSettings.Metronome > 79 &&
-    gameSettings.Metronome < 121;
+    gameSettings.Metronome < 181;
   if (!valid) return false;
   valid =
     gameSettings.UseMetronome != undefined &&
     typeof gameSettings.UseMetronome == 'boolean';
+  if (!valid) return false;
+  valid =
+    gameSettings.UseAnimation != undefined &&
+    typeof gameSettings.UseAnimation == 'boolean';
+  if (!valid) return false;
+  valid =
+    gameSettings.AnimationSpeed != undefined &&
+    typeof gameSettings.AnimationSpeed == 'number';
   if (!valid) return false;
 
   // Save gameSettings in DB

@@ -1,28 +1,24 @@
 <template>
-  <div class="game">
-    <header>
-      <div>
+  <div class="page">
+    <w-flex wrap class="header align-center">
+      <w-flex class="xs4 justify-start">
         <span>{{ filters.ZeroPrefix(this.Counter) }}</span>
-      </div>
-      <div>
+      </w-flex>
+      <w-flex class="xs4 justify-center">
         <span> {{ filters.StopwatchTime(this.stopwatch.Time) }}</span>
-      </div>
-      <div class="btn" @click="this.OpenModal()">
+      </w-flex>
+      <w-flex class="xs4 justify-end" @click="this.OpenModal()">
         <img src="../assets/icons/close.svg" />
-      </div>
-    </header>
+      </w-flex>
+    </w-flex>
     <teleport to="body">
       <div class="modal-placeholder" v-if="this.IsOpen">
         <ConfirmModal @quitGame="this.Close($event)" />
       </div>
     </teleport>
     <div class="gamefield" @click="this.ChangeWord()">
-      <div class="placeholder">
-        <h1
-          v-if="this.Word != ''"
-          ref="wordPlaceholder"
-          class="animate__animated"
-        >
+      <div class="placeholder" ref="wordPlaceholder">
+        <h1 v-if="this.Word != ''" class="">
           {{ this.Word }}
         </h1>
         <Loader v-else />
@@ -33,7 +29,7 @@
 
 <script>
 import router from '../router/index';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 
 // IMPORT LOGIC
 import getWordList from '../logic/getWordList';
@@ -71,16 +67,13 @@ export default {
       return wordList.value[randomNumber];
     };
 
-    const start = async function() {
+    const getData = async function() {
       await Promise.all([
         await settings.GetGameSettings(),
         await getWordList(),
       ]).then((data) => {
         GameSettings.value = data[0];
         wordList.value = data[1];
-        stopwatch.Start();
-        Word.value = getRandomWord();
-        Counter.value++;
       });
     };
 
@@ -127,14 +120,46 @@ export default {
       }
     };
 
-    onMounted(async function() {
-      await start();
+    onMounted(async () => {
+      await getData();
+
+      if (GameSettings.value.UseAnimation) {
+        wordPlaceholder.value.classList.add('animate__animated');
+        wordPlaceholder.value.style = `--animate-duration: ${GameSettings.value.AnimationSpeed}s;`;
+      }
+
+      if (GameSettings.value.UseTimer) {
+        watch(
+          () => stopwatch.Time.Seconds,
+          (seconds) => {
+            if (seconds % GameSettings.value.Timer === 0) {
+              ChangeWord();
+            }
+          }
+        );
+      }
+
+      if (GameSettings.value.UseMetronome) {
+        console.log(
+          'Sorry we know you want to use this but, we havent add the metronome yet.'
+        );
+      }
+
+      if (GameSettings.value.UseRecording) {
+        console.log(
+          'Sorry we know you want to use this but, we havent add the recording yet.'
+        );
+      }
+
+      stopwatch.Start();
+      Word.value = getRandomWord();
+      Counter.value++;
     });
 
     return {
+      wordPlaceholder,
       filters,
       stopwatch,
-      wordPlaceholder,
       ChangeWord,
       OpenModal,
       Close,
@@ -148,27 +173,17 @@ export default {
 </script>
 
 <style scoped>
-.game {
+.w-flex.wrap.header {
   width: 100%;
-  height: 100vh;
-  display: flex;
-}
-
-header {
-  width: 100%;
-  height: 0;
-  display: flex;
-  justify-content: space-evenly;
+  position: absolute;
+  padding: 20px;
   z-index: 99;
 }
-header div {
-  margin: 20px;
-}
-header div span {
+.w-flex div span {
   font-size: 2em;
   font-weight: 600;
 }
-header div img {
+.w-flex div img {
   width: 32px;
   height: 32px;
 }
@@ -188,7 +203,6 @@ header div img {
 .placeholder h1 {
   margin: auto;
   font-size: 5em;
-  --animate-duration: 0.8s;
 }
 
 .modal-placeholder {

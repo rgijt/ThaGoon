@@ -282,7 +282,7 @@
 
 <script>
 import ScoreLine from '../components/ScoreLine.vue';
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import getScoresList from '../logic/getScoresList';
 import router from '../router/index';
 
@@ -322,12 +322,6 @@ export default {
         .addEventListener('scroll', handleScroll);
     });
 
-    onUnmounted(() => {
-      document
-        .getElementsByClassName('scorelist')[0]
-        .addEventListener('scroll', handleScroll);
-    });
-
     const handleScroll = () => {
       let element = scrollComponent.value;
       let scrollY = element.scrollHeight - element.scrollTop;
@@ -349,11 +343,6 @@ export default {
 </script>
 
 <style scoped>
-.page {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
 header {
   display: flex;
   justify-content: flex-end;
